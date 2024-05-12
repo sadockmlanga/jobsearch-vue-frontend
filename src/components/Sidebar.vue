@@ -90,7 +90,7 @@
         </router-link>
 
         <router-link
-          
+        v-if="isOwner"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Payments' ? activeClass : inactiveClass]"
           to="/payments"
@@ -130,6 +130,7 @@
         </router-link>
 
         <router-link
+         v-if="isOwner"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'RecruiterJobs' ? activeClass : inactiveClass]"
           to="/rec-jobs"
@@ -149,6 +150,7 @@
         </router-link>
 
         <router-link
+        v-if="isOwner"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'RecruiterApplications' ? activeClass : inactiveClass]"
           to="/rec-applications"

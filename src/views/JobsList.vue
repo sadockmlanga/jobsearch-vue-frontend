@@ -25,18 +25,20 @@
           <tr>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th> -->
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr v-for="(item, index) in paginatedData" :key="index">
             <td class="px-6 py-4 whitespace-nowrap">{{ item.id }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ item.title }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ item.category }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ item.location }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <button @click="editItem(index)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">Edit</button>
-              <button @click="deleteItem(index)" class="text-red-600 hover:text-red-900 focus:outline-none ml-2">Delete</button>
+              <!-- <button @click="editItem(index)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">Edit</button> -->
+              <!-- <button @click="deleteItem(item.dataID)" class="text-red-600 hover:text-red-900 focus:outline-none ml-2">Delete</button> -->
             </td>
           </tr>
         </tbody>
@@ -59,6 +61,7 @@
 import { ref, computed, onMounted } from 'vue';
 import axios from "axios";
 import Breadcrumb from '../partials/Breadcrumb.vue'
+import { useJobStore } from '../store/JobStore.ts'
 
 interface Job {
   id: number;
@@ -66,17 +69,24 @@ interface Job {
   location: string;
 }
 
+const dash = useJobStore()
+
 const tableData = ref<Job[]>([]);
 const loading = ref(true);
 
 onMounted(async () => {
+  
   try {
     const response = await axios.get('/jobs');
     tableData.value = response.data.data.map((item: any, index: number) => ({
       id: index + 1,
+      dataID: item.id,
       title: item.title,
-      location: item.location,
+      location: item.location.name,
+      category: item.category.name,
     }));
+    console.log('alll jjj', response.data.data)
+    
   } catch (error) {
     console.error("Failed to fetch job data:", error);
   } finally {
@@ -84,7 +94,7 @@ onMounted(async () => {
   }
 });
 
-const columns = ref(['ID', 'Title', 'Location']);
+
 const searchQuery = ref('');
 const itemsPerPage = 6;
 let currentPage = ref(1);
@@ -121,15 +131,25 @@ function prevPage() {
   }
 }
 
-function editItem(index: number) {
-  // Implement your edit logic here
-  console.log('Editing item at index:', index);
-}
+// function editItem(index: number) {
+  
+//   console.log('Editing item at index:', index);
+// }
 
-function deleteItem(index: number) {
-  // Implement your delete logic here
-  console.log('Deleting item at index:', index);
-}
+// function deleteItem(index: number) {
+
+//   try {
+//     await dash.deleteJob(index);
+
+//     // Find the index of the item to be deleted
+//     const index = tableData.value.findIndex((item) => item.index === index);
+//     if (index !== -1) {
+//       tableData.value.splice(index, 1);
+//     }
+//   } catch (error) {
+//     console.error("Failed to delete item:", error);
+//   }
+// }
 </script>
 
 <style scoped>

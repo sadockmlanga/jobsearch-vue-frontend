@@ -57,6 +57,8 @@
               </svg>
           </button>
 
+          <button @click="() => auth.logout()" class="px-2">OUT</button>
+
 
           
         </div>
@@ -69,6 +71,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useSidebar } from "../hooks/useSidebar";
+import { useAuthStore } from "../store/AuthStore.ts"
+
+const auth = useAuthStore();
 
 const dropdownOpen = ref(false);
 const { isOpen } = useSidebar();

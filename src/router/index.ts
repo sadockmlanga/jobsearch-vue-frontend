@@ -68,7 +68,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Dashboard,
   },
   {
-    path: "/success",
+    path: "/payment-sucess",
     name: "PaymentSuccess",
     component: PaymentSuccess,
   },

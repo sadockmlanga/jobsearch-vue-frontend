@@ -95,6 +95,7 @@ export const useAuthStore = defineStore('auth', {
             localStorage.clear();
             this.user = null;
             this.isAuthenticated = false;
+            window.location.assign('/');
         },
     },
 });
