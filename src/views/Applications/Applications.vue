@@ -37,7 +37,15 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ item.job }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ item.status }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <!-- <button @click="editItem(index)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">Edit</button> -->
+              <router-link
+                :to="{ name: 'UserDetails', params: { id: item.dataId } }"
+              >
+                <button
+                  class="text-indigo-600 hover:text-indigo-900 focus:outline-none"
+                >
+                  View
+                </button>
+              </router-link>
               <button @click="deleteItem(item.dataId)" class="text-red-600 hover:text-red-900 focus:outline-none ml-2">Delete</button>
             </td>
           </tr>

@@ -23,7 +23,7 @@
           <div class="hidden md:flex md:items-center">
             <!-- If user is authenticated, show logout link -->
             <button
-              v-if="isAuthenticated"
+              v-if="isAuthenticated()"
               @click="() => auth.logout()"
               class="text-gray-100 hover:bg-sky-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >Logout</button>

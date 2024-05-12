@@ -47,7 +47,7 @@
         </select>
       </div>
 
-      <div class="w-full md:w-1/2 lg:w-1/3 md:my-2">
+      <div class="w-full lg:w-1/3 md:my-2">
         <!-- <label for="searchQuery" class="block text-gray-700 font-medium mb-2"
           >Search</label
         > -->

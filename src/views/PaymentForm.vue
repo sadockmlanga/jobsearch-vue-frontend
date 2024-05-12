@@ -17,8 +17,9 @@
             :pk="publishableKey"
             :sessionId="sessionId"
           />
-          <button @click="submit" class="bg-sky-500 p-4 rounded-sm bg-white">
-            Pay now!
+          <button @click="submit" :disabled="processing" class="bg-sky-500 p-4 rounded-sm bg-white">
+            <span v-if="processing">Processing...</span>
+            <span v-else>Pay now!</span>
           </button>
         </div>
       </div>
@@ -26,31 +27,45 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue"; // Import ref function from Vue Composition API
+<script lang="ts">
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import axios from "axios";
 
-const publishableKey =
-  "pk_test_51OMSreChVPmo7x9G4DGQairUnplVtd0ESLzeKXmCIo3Us6KpC2PYQfbknnbdxalJQRL3Kxt4lgZ7bV55mPeewjc500vVJiUbep";
-let sessionId = ref(null); // Declare sessionId as a ref
-
-const getSession = async () => {
-  try {
-    const res = await axios.get("/getSession");
-    sessionId.value = res.data.id; // Access the value property of ref
-  } catch (err) {
-    console.error(err);
+export default {
+  components: {
+    StripeCheckout,
+  },
+  data() {
+    return {
+      publishableKey: "pk_test_51OMSreChVPmo7x9G4DGQairUnplVtd0ESLzeKXmCIo3Us6KpC2PYQfbknnbdxalJQRL3Kxt4lgZ7bV55mPeewjc500vVJiUbep",
+      sessionId: null,
+      processing: false // Added processing state
+    }
+  },
+  mounted() {
+    this.getSession()
+  },
+  methods: {
+    async getSession() {
+      try {
+        const response = await axios.get('/getSession');
+        this.sessionId = response.data.id;
+      } catch (error) {
+        console.error('Error fetching session:', error);
+      }
+    },
+    async submit() {
+      this.processing = true; // Set processing state to true
+      try {
+        // Simulate some processing time before redirecting to Stripe
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Adjust the timeout as needed
+        this.$refs.checkoutRef.redirectToCheckout();
+      } catch (error) {
+        console.error('Error during payment processing:', error);
+      } finally {
+        this.processing = false; // Reset processing state
+      }
+    }
   }
-};
-
-const submit = () => {
-  checkoutRef.value.redirectToCheckout(); // Access the value property of ref
-};
-
-// Create a ref for StripeCheckout component
-const checkoutRef = ref();
-
-import { onMounted } from "vue";
-onMounted(getSession);
+}
 </script>

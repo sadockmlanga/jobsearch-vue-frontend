@@ -20,6 +20,7 @@ import JobsApplied from "@/views/Frontend/JobsApplied.vue";
 import Register from "@/views/Register.vue";
 
 import PaymentSuccess from "@/views/PaymentSuccess.vue";
+import AfterPSuccess from "@/views/AfterPSuccess.vue";
 
 import UserDetails from "@/views/Applications/ApplicantDetails.vue"
 
@@ -29,6 +30,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Home",
     component: Jobs,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/successful",
+    name: "AfterPSuccess",
+    component: AfterPSuccess,
     meta: { layout: "empty" },
   },
 

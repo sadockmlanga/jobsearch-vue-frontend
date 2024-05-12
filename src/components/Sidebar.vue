@@ -4,33 +4,13 @@
     <div
       :class="isOpen ? 'block' : 'hidden'"
       @click="isOpen = false"
-      class="
-        fixed
-        inset-0
-        z-20
-        transition-opacity
-        bg-black
-        opacity-50
-        lg:hidden
-      "
+      class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"
     ></div>
     <!-- End Backdrop -->
 
     <div
       :class="isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-      class="
-        fixed
-        inset-y-0
-        left-0
-        z-30
-        w-64
-        overflow-y-auto
-        transition
-        duration-300
-        transform
-        bg-gray-900
-        lg:translate-x-0 lg:static lg:inset-0
-      "
+      class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
     >
       <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
@@ -41,7 +21,6 @@
       <nav class="mt-10">
         <!-- <p class="pl-4 text-xs font-semibold mb-4 text-gray-400">GENERAL</p> -->
         <router-link
-          
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]"
           to="/dashboard"
@@ -67,8 +46,6 @@
           Examples
         </p> -->
 
-
-
         <router-link
           v-if="isAdmin"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
@@ -90,29 +67,11 @@
         </router-link>
 
         <router-link
-        v-if="isOwner"
-          class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Payments' ? activeClass : inactiveClass]"
-          to="/payments"
-        >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-              clip-rule="evenodd"
-            />
-          </svg>
-
-          <span class="mx-4">Package Payment</span>
-        </router-link>
-
-        <router-link
           v-if="isAdmin"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Applications' ? activeClass : inactiveClass]"
+          :class="[
+            $route.name === 'Applications' ? activeClass : inactiveClass,
+          ]"
           to="/applications"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -130,9 +89,11 @@
         </router-link>
 
         <router-link
-         v-if="isOwner"
+          v-if="isOwner"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'RecruiterJobs' ? activeClass : inactiveClass]"
+          :class="[
+            $route.name === 'RecruiterJobs' ? activeClass : inactiveClass,
+          ]"
           to="/rec-jobs"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -150,9 +111,13 @@
         </router-link>
 
         <router-link
-        v-if="isOwner"
+          v-if="isOwner"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'RecruiterApplications' ? activeClass : inactiveClass]"
+          :class="[
+            $route.name === 'RecruiterApplications'
+              ? activeClass
+              : inactiveClass,
+          ]"
           to="/rec-applications"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -169,27 +134,8 @@
           <span class="mx-4">Applicants</span>
         </router-link>
 
-        <!-- <router-link
-          class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'JobCreate' ? activeClass : inactiveClass]"
-          to="/add-job"
-        >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-              clip-rule="evenodd"
-            />
-          </svg>
-
-          <span class="mx-4">Add Jobs</span>
-        </router-link> -->
-
         <router-link
-        v-if="isAdmin"
+          v-if="isAdmin"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'JobsList' ? activeClass : inactiveClass]"
           to="/list-jobs"
@@ -208,7 +154,25 @@
           <span class="mx-4">All Jobs</span>
         </router-link>
 
+        <router-link
+          v-if="isOwner"
+          class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+          :class="[$route.name === 'Payments' ? activeClass : inactiveClass]"
+          to="/payments"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+              clip-rule="evenodd"
+            />
+          </svg>
 
+          <span class="mx-4">Package Payment</span>
+        </router-link>
       </nav>
     </div>
   </div>
@@ -218,13 +182,11 @@
 import { ref } from "vue";
 import { useSidebar } from "../hooks/useSidebar";
 
-
-
 // Function to get user roles from localStorage
 const getUserRoles = () => {
   const userData = JSON.parse(localStorage.getItem("user"));
-  console.log('user role', userData.role);
-  
+  console.log("user role", userData.role);
+
   if (userData.role) {
     return userData.role;
   } else {
@@ -238,10 +200,8 @@ const hasRole = (role) => {
   return userRole === role;
 };
 
-const isAdmin = hasRole(1); 
+const isAdmin = hasRole(1);
 const isOwner = hasRole(2);
-
-
 
 const { isOpen } = useSidebar();
 const activeClass = ref(

@@ -36,10 +36,10 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ item.title }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ item.category }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ item.location }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <!-- <td class="px-6 py-4 whitespace-nowrap"> -->
               <!-- <button @click="editItem(index)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">Edit</button> -->
               <!-- <button @click="deleteItem(item.dataID)" class="text-red-600 hover:text-red-900 focus:outline-none ml-2">Delete</button> -->
-            </td>
+            <!-- </td> -->
           </tr>
         </tbody>
       </table>
