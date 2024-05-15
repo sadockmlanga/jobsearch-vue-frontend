@@ -84,7 +84,7 @@
           </tr>
         </tbody>
       </table>
-      <div v-else class="text-center my-4">No User found.</div>
+      <div v-else class="text-center my-4">No Job found.</div>
     </div>
     <div
       class="flex justify-between items-center mt-4"
@@ -122,6 +122,7 @@ interface Job {
   id: number;
   title: string;
   category: string;
+  dataId: number;
 }
 
 const tableData = ref<Job[]>([]);

@@ -75,13 +75,14 @@
       <div
         v-for="job in paginatedJobs"
         :key="job.id"
-        class="bg-white rounded-lg shadow-lg overflow-hidden"
+        class="bg-white rounded-lg shadow-lg overflow-hidden uppercase"
       >
         <div class="px-4 py-2">
           <h2 class="text-lg font-bold text-gray-800 mb-1">{{ job.title }}</h2>
-          <p class="text-md text-gray-600 mb-1">{{ job.category.name }}</p>
-          <p class="text-sm text-gray-500">{{ job.location.name }}</p>
-          <p class="text-sm text-gray-500">
+          <h2 class="text-lg font-bold text-gray-700 mb-1"><span class="text-sm text-gray-500 uppercase px-2">Company:</span> {{ job.user.company }}</h2>
+          <p class="text-md text-gray-600 mb-1"><span class="text-sm text-gray-500 uppercase px-2">Category:</span> {{ job.category.name }}</p>
+          <p class="text-sm text-gray-500"><span class="text-sm text-gray-500 uppercase px-2">Location:</span>{{ job.location.name }}</p>
+          <p class="text-sm text-gray-500"> <span class="text-sm text-gray-500 uppercase px-2">Posted on:</span>
             {{ formatDate(job.created_at) }}
           </p>
         </div>
@@ -121,8 +122,8 @@
 import { computed, ref, watch, onMounted } from "vue";
 import { useJobStore } from "../../store/JobStore";
 import { useRouter } from "vue-router";
-import NavBar from "./NavBar";
-import { useGeneralStore } from "../../store/GenetalStore.ts";
+import NavBar from "@/views/Frontend/NavBar.vue";
+import { useGeneralStore } from "@/store/GenetalStore";
 
 const gen = useGeneralStore();
 
@@ -155,6 +156,7 @@ const filteredJobs = computed(() => {
       (job) =>
         job.title.toLowerCase().includes(query) ||
         job.description.toLowerCase().includes(query) ||
+        job.user.company.toLowerCase().includes(query) ||
         job.location.name.toLowerCase().includes(query)
     );
   }

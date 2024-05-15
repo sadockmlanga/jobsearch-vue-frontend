@@ -17,9 +17,8 @@
             :pk="publishableKey"
             :sessionId="sessionId"
           />
-          <button @click="submit" :disabled="processing" class="bg-sky-500 p-4 rounded-sm bg-white">
-            <span v-if="processing">Processing...</span>
-            <span v-else>Pay now!</span>
+          <button @click="submit" class="bg-sky-500 p-4 rounded-sm text-white hover:bg-sky-700">
+            Pay now!
           </button>
         </div>
       </div>
@@ -27,45 +26,33 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted } from "vue"; // Import ref function from Vue Composition API
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import axios from "axios";
 
-export default {
-  components: {
-    StripeCheckout,
-  },
-  data() {
-    return {
-      publishableKey: "pk_test_51OMSreChVPmo7x9G4DGQairUnplVtd0ESLzeKXmCIo3Us6KpC2PYQfbknnbdxalJQRL3Kxt4lgZ7bV55mPeewjc500vVJiUbep",
-      sessionId: null,
-      processing: false // Added processing state
-    }
-  },
-  mounted() {
-    this.getSession()
-  },
-  methods: {
-    async getSession() {
-      try {
-        const response = await axios.get('/getSession');
-        this.sessionId = response.data.id;
-      } catch (error) {
-        console.error('Error fetching session:', error);
-      }
-    },
-    async submit() {
-      this.processing = true; // Set processing state to true
-      try {
-        // Simulate some processing time before redirecting to Stripe
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Adjust the timeout as needed
-        this.$refs.checkoutRef.redirectToCheckout();
-      } catch (error) {
-        console.error('Error during payment processing:', error);
-      } finally {
-        this.processing = false; // Reset processing state
-      }
-    }
+// Create a ref for StripeCheckout component
+// const checkoutRef = ref();
+
+const publishableKey =
+  "pk_test_51OMSreChVPmo7x9G4DGQairUnplVtd0ESLzeKXmCIo3Us6KpC2PYQfbknnbdxalJQRL3Kxt4lgZ7bV55mPeewjc500vVJiUbep";
+let sessionId = ref(null); // Declare sessionId as a ref
+let checkoutRef = ref(null);
+
+const getSession = async () => {
+  try {
+    const res = await axios.get("/getSession");
+    sessionId.value = res.data.id; // Access the value property of ref
+  } catch (err) {
+    console.error(err);
   }
-}
+};
+
+const submit = () => {
+  if (checkoutRef.value) {
+    checkoutRef.value.redirectToCheckout(); // Access the value property of ref
+  }
+};
+
+onMounted(getSession);
 </script>

@@ -35,7 +35,7 @@ export const useJobStore = defineStore('job', {
         },
         async fetchMyJobsPosted() {
             try {
-                const response = await axios.get(`/recruiter-jobs`);
+                const response = await axios.get(`/applicant/recruiter-jobs`);
                 this.recruiterJobs = response.data.data;
                 console.log('reccc', this.recruiterJobs);
                 

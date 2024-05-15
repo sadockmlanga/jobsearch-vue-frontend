@@ -36,7 +36,7 @@ export const useApplicationStore = defineStore('application', {
         },
         async fetchMyApplicants() {
             try {
-                const response = await axios.get(`/recruiter-applications`);
+                const response = await axios.get(`/applicant/recruiter-applications`);
                 this.recruiterApplicants = response.data.data;
                 
             } catch (error) {
@@ -58,8 +58,7 @@ export const useApplicationStore = defineStore('application', {
 
         async updateApplicationStatus(id: number, status: string) {
             try {
-                console.log('satausa', status);
-                
+                               
                 await axios.post(`/applications/${id}`, { 'status': status});
                
                 await this.getApplicantDetails(id);

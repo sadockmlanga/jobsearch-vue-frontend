@@ -77,7 +77,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/applied');
+    const response = await axios.get('applicant/applied-jobs');
     tableData.value = response.data.data.map((item: any, index: number) => ({
       id: index + 1,
       dataId: item.id,
@@ -97,6 +97,8 @@ onMounted(async () => {
 const searchQuery = ref('');
 const itemsPerPage = 6;
 let currentPage = ref(1);
+
+
 
 // Computed properties
 const filteredData = computed(() => {

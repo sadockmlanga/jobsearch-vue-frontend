@@ -14,6 +14,7 @@
               class="text-gray-100 hover:bg-sky-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >Home</router-link>
             <router-link
+            v-if="isAuthenticated()"
               to="/jobs-applied"
               class="text-gray-100 hover:bg-sky-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >Applied Jobs</router-link>

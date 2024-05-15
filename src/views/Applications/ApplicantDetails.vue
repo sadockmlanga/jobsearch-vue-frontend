@@ -45,7 +45,7 @@
               <dt class="text-sm font-medium text-gray-500">Resume</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <a
-                  :href="userDetails.resume"
+                  :href="rootUrl + userDetails.resume"
                   target="_blank"
                   class="bg-sky-500 text-white p-2 rounded-md hover:bg-sky-700"
                   >View Resume</a
@@ -108,6 +108,8 @@ const userDetails = ref(null);
 const newStatus = ref("");
 const application = useApplicationStore();
 
+const rootUrl = `http://127.0.0.1:8090/`;
+
 onMounted(async () => {
   try {
     await fetchUserDetails();
@@ -119,14 +121,6 @@ onMounted(async () => {
 const fetchUserDetails = async () => {
   try {
     await application.getApplicantDetails(applicationId);
-    // let fetchedDetails = application.jobApplication;
-
-    // Removing duplicate entries
-    // const uniqueUserDetails = fetchedDetails.filter(
-    //   (detail, index, self) =>
-    //     index === self.findIndex((t) => t.user.id === detail.user.id)
-    // );
-    
     
     userDetails.value = application.jobApplication;
     console.log('Fetched UserDetails:', userDetails.value);
