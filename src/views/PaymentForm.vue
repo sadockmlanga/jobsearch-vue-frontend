@@ -12,13 +12,14 @@
         <span class="text-xl font-semibold text-gray-800">$100</span>
 
         <div>
-          <stripe-checkout
+          <StripeCheckout
             ref="checkoutRef"
             :pk="publishableKey"
             :sessionId="sessionId"
           />
-          <button @click="submit" class="bg-sky-500 p-4 rounded-sm text-white hover:bg-sky-700">
-            Pay now!
+          <button @click="submit" :disabled="processing" class="bg-sky-500 hover:bg-sky-700 p-4 rounded-sm white">
+            <span v-if="processing">Processing...</span>
+            <span v-else>Pay now!</span>
           </button>
         </div>
       </div>
@@ -27,32 +28,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"; // Import ref function from Vue Composition API
+import { ref, onMounted } from "vue";
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import axios from "axios";
 
-// Create a ref for StripeCheckout component
-// const checkoutRef = ref();
-
-const publishableKey =
-  "pk_test_51OMSreChVPmo7x9G4DGQairUnplVtd0ESLzeKXmCIo3Us6KpC2PYQfbknnbdxalJQRL3Kxt4lgZ7bV55mPeewjc500vVJiUbep";
-let sessionId = ref(null); // Declare sessionId as a ref
+const publishableKey = "pk_test_51OMSreChVPmo7x9G4DGQairUnplVtd0ESLzeKXmCIo3Us6KpC2PYQfbknnbdxalJQRL3Kxt4lgZ7bV55mPeewjc500vVJiUbep";
+let sessionId = ref(null);
 let checkoutRef = ref(null);
+const processing = ref(false);
 
 const getSession = async () => {
   try {
-    const res = await axios.get("/getSession");
-    sessionId.value = res.data.id; // Access the value property of ref
-  } catch (err) {
-    console.error(err);
+    const response = await axios.get('/getSession');
+    sessionId.value = response.data.id;
+  } catch (error) {
+    console.error('Error fetching session:', error);
   }
 };
 
-const submit = () => {
-  if (checkoutRef.value) {
-    checkoutRef.value.redirectToCheckout(); // Access the value property of ref
+const submit = async () => {
+  processing.value = true;
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Adjust the timeout as needed
+    checkoutRef.value.redirectToCheckout();
+    // $refs.checkoutRef.redirectToCheckout();
+  } catch (error) {
+    console.error('Error during payment processing:', error);
+  } finally {
+    processing.value = false;
   }
 };
 
-onMounted(getSession);
+onMounted(() => {
+  getSession();
+});
 </script>
+
+

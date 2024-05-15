@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="bg-gray-100 min-h-screen flex justify-center items-center">
     <div class="max-w-lg rounded-lg overflow-hidden">
       <div class="px-6 py-8">
@@ -69,4 +69,4 @@ export default {
     this.getSession()
   },
 }
-</script>
+</script> -->
