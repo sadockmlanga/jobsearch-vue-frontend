@@ -45,7 +45,7 @@
               <dt class="text-sm font-medium text-gray-500">Resume</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <a
-                  :href="rootUrl + userDetails.resume"
+                  :href="rootUrl + userDetails.resume_url"
                   target="_blank"
                   class="bg-sky-500 text-white p-2 rounded-md hover:bg-sky-700"
                   >View Resume</a
@@ -108,7 +108,7 @@ const userDetails = ref(null);
 const newStatus = ref("");
 const application = useApplicationStore();
 
-const rootUrl = `http://127.0.0.1:8090/`;
+const rootUrl = `http://127.0.0.1:8090`;
 
 onMounted(async () => {
   try {

@@ -17,7 +17,7 @@
             :pk="publishableKey"
             :sessionId="sessionId"
           />
-          <button @click="submit" :disabled="processing" class="bg-sky-500 hover:bg-sky-700 p-4 rounded-sm white">
+          <button @click="submit" :disabled="processing" class="bg-sky-500 hover:bg-sky-700 p-4 rounded-lg text-white">
             <span v-if="processing">Processing...</span>
             <span v-else>Pay now!</span>
           </button>
@@ -39,7 +39,7 @@ const processing = ref(false);
 
 const getSession = async () => {
   try {
-    const response = await axios.get('/getSession');
+    const response = await axios.get('/payments/getSession');
     sessionId.value = response.data.id;
   } catch (error) {
     console.error('Error fetching session:', error);
@@ -49,7 +49,7 @@ const getSession = async () => {
 const submit = async () => {
   processing.value = true;
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Adjust the timeout as needed
+    await new Promise(resolve => setTimeout(resolve, 5000)); // Adjust the timeout as needed
     checkoutRef.value.redirectToCheckout();
     // $refs.checkoutRef.redirectToCheckout();
   } catch (error) {
